@@ -1,4 +1,4 @@
-const previorus = document.querySelector('#previorus');
+const previous = document.querySelector('#previous');
 const current = document.querySelector('#current');
 const clear = document.querySelector('#clear');
 const backspace = document.querySelector('#backspace');
@@ -8,33 +8,29 @@ const operators = document.querySelectorAll('.operator');
 const equals = document.querySelector('#equals');
 
 function Calculator (){
-    this.previorus = previorus;
+    this.previous = previous;
     this.current = current;
     this.prevInput = '';
+    this.operatorArray = []
+    operators.forEach(operator => {
+            this.operatorArray.push(operator.innerText);
+    } )
 
     this.numbersClick = (e)=>{
         this.event = e;
         this.current.innerText += this.event.target.innerText;
-        this.setPrevInput();
+        this.setPrevInput(e.target.innerText);
     }
     this.operatorsClick = (e)=>{
         this.event = e;
-        this.operators = operators
-        this.compairPrevInput = () =>{
-            this.operators.forEach(operator => {
-                console.log(operator.innerText)
-                if(operator.innerText !== this.event.target.innerText){
-                    return true;
-                }
-            })
-        
-        }
-        console.log(this.compairPrevInput())
-        this.compairPrevInput() ? this.current.innerText += this.event.target.innerText : this.setPrevInput();
-        this.setPrevInput();
-        
+        this.prevIsOperator = this.operatorArray.includes(this.prevInput);
+        console.log(this.prevIsOperator);
+        this.prevIsOperator? this.current.innerText.slice(0, -1) : null;
+        this.current.innerText += this.event.target.innerText;
+        this.setPrevInput(this.event.target.innerText);
     }
     this.equalsClick = (e)=>{
+        this.current.innerHTML= parseFloat(eval(this.current.innerText));
     }
     this.clearClick = ()=>{
         this.current.innerText = '';
@@ -42,10 +38,10 @@ function Calculator (){
     }
     this.backspaceClick = (e)=>{
         this.current.innerText = this.current.innerText.slice(0, -1);
-        this.setPrevInput();
+        this.setPrevInput(e.target.innerText);
     }
-    this.setPrevInput = ()=>{
-        this.prevInput = this.current.innerText;
+    this.setPrevInput = (e)=>{
+        this.prevInput = e;
     }
 }
 const calc = new Calculator();

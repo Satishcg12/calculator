@@ -67,7 +67,7 @@ button{
     width: 100%;
     height: 100%;
 }
-.function , .number , .operator{
+.function , .number , .operator , .equals{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -78,7 +78,7 @@ button{
     padding: 10px;
     cursor: pointer;
 }
-.function:active , .number:active , .operator:active{
+.function:active , .number:active , .operator:active , .equals:active{
     background: #f5f5f5;
 }
 
@@ -96,7 +96,6 @@ button{
 }
 .inputs .operators{
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    width: 50%;
+    width: 30%;
 }
